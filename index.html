@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="notranslate" translate="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate" />
   <title>KVRouite to Shotcut MLT Converter</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -34,7 +35,7 @@
         <!-- Language Selector -->
         <div class="flex items-center space-x-1.5 bg-slate-800/90 rounded-lg p-1 border border-slate-700 shadow-inner">
           <span class="text-xs pl-1">🌐</span>
-          <select id="langSelector" class="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer pr-1">
+          <select id="langSelector" onchange="setLanguage(this.value)" class="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer pr-1 notranslate" translate="no">
             <option value="en" class="bg-slate-800 text-slate-200">English (EN)</option>
             <option value="de" class="bg-slate-800 text-slate-200">Deutsch (DE)</option>
             <option value="fr" class="bg-slate-800 text-slate-200">Français (FR)</option>
@@ -414,65 +415,96 @@
       currentLang = lang;
       const t = i18n[lang];
 
-      document.getElementById("t_headerSubtitle").textContent = t.headerSubtitle;
-      document.getElementById("t_bannerTitle").textContent = t.bannerTitle;
-      document.getElementById("t_bannerAbout").innerHTML = t.bannerAbout;
-      document.getElementById("t_bannerWarning").innerHTML = t.bannerWarning;
+      document.documentElement.lang = lang;
+      const langSel = document.getElementById("langSelector");
+      if (langSel && langSel.value !== lang) {
+        langSel.value = lang;
+      }
 
-      document.getElementById("t_heroBadge").textContent = t.heroBadge;
-      document.getElementById("t_heroTitle").textContent = t.heroTitle;
-      document.getElementById("t_heroDesc").innerHTML = t.heroDesc;
-      document.getElementById("t_privacyBadge").textContent = t.privacyBadge;
-      document.getElementById("t_dropAction").textContent = t.dropAction;
-      document.getElementById("t_dropOr").textContent = t.dropOr;
-      document.getElementById("t_dropSub").textContent = t.dropSub;
-      document.getElementById("t_cardClips").textContent = t.cardClips;
-      document.getElementById("t_cardCuts").textContent = t.cardCuts;
-      document.getElementById("t_cardCrossfades").textContent = t.cardCrossfades;
-      document.getElementById("t_cardOverlays").textContent = t.cardOverlays;
-      document.getElementById("t_viewSources").textContent = t.viewSources;
-      document.getElementById("t_settingsTitle").textContent = t.settingsTitle;
-      document.getElementById("t_labelResolution").textContent = t.labelResolution;
-      document.getElementById("t_labelFps").textContent = t.labelFps;
-      document.getElementById("t_labelXfade").textContent = t.labelXfade;
-      document.getElementById("t_secUnit").textContent = t.secUnit;
-      document.getElementById("t_pathRemappingTitle").textContent = t.pathRemappingTitle;
-      document.getElementById("t_pathRemappingDesc").textContent = t.pathRemappingDesc;
-      document.getElementById("pathFind").placeholder = t.pathFindPlaceholder;
-      document.getElementById("pathReplace").placeholder = t.pathReplacePlaceholder;
-      document.getElementById("t_btnGenerate").textContent = t.btnGenerate;
-      document.getElementById("t_btnReset").textContent = t.btnReset;
-      document.getElementById("t_footerTitle").innerHTML = t.footerTitle;
-      document.getElementById("t_footerDisclaimer").textContent = t.footerDisclaimer;
+      const safeSetText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el && text !== undefined) el.textContent = text;
+      };
+      const safeSetHtml = (id, html) => {
+        const el = document.getElementById(id);
+        if (el && html !== undefined) el.innerHTML = html;
+      };
+      const safeSetPlaceholder = (id, ph) => {
+        const el = document.getElementById(id);
+        if (el && ph !== undefined) el.placeholder = ph;
+      };
+
+      safeSetText("t_headerSubtitle", t.headerSubtitle);
+      safeSetText("t_bannerTitle", t.bannerTitle);
+      safeSetHtml("t_bannerAbout", t.bannerAbout);
+      safeSetHtml("t_bannerWarning", t.bannerWarning);
+
+      safeSetText("t_heroBadge", t.heroBadge);
+      safeSetText("t_heroTitle", t.heroTitle);
+      safeSetHtml("t_heroDesc", t.heroDesc);
+      safeSetText("t_privacyBadge", t.privacyBadge);
+      safeSetText("t_dropAction", t.dropAction);
+      safeSetText("t_dropOr", t.dropOr);
+      safeSetText("t_dropSub", t.dropSub);
+      safeSetText("t_cardClips", t.cardClips);
+      safeSetText("t_cardCuts", t.cardCuts);
+      safeSetText("t_cardCrossfades", t.cardCrossfades);
+      safeSetText("t_cardOverlays", t.cardOverlays);
+      safeSetText("t_viewSources", t.viewSources);
+      safeSetText("t_settingsTitle", t.settingsTitle);
+      safeSetText("t_labelResolution", t.labelResolution);
+      safeSetText("t_labelFps", t.labelFps);
+      safeSetText("t_labelXfade", t.labelXfade);
+      safeSetText("t_secUnit", t.secUnit);
+      safeSetText("t_pathRemappingTitle", t.pathRemappingTitle);
+      safeSetText("t_pathRemappingDesc", t.pathRemappingDesc);
+      safeSetPlaceholder("pathFind", t.pathFindPlaceholder);
+      safeSetPlaceholder("pathReplace", t.pathReplacePlaceholder);
+      safeSetText("t_btnGenerate", t.btnGenerate);
+      safeSetText("t_btnReset", t.btnReset);
+      safeSetHtml("t_footerTitle", t.footerTitle);
+      safeSetText("t_footerDisclaimer", t.footerDisclaimer);
 
       // Update badge if loaded
       if (loadedProject) {
         const durations = loadedProject.video_durations || [];
         const totalSec = durations.reduce((acc, d) => acc + Number(d || 0), 0);
-        document.getElementById("totalDurationBadge").textContent = `${t.rawBadge}${formatTime(totalSec)}`;
+        safeSetText("totalDurationBadge", `${t.rawBadge}${formatTime(totalSec)}`);
       }
 
-      localStorage.setItem("kvrouite_shotcut_lang", lang);
+      try {
+        localStorage.setItem("kvrouite_shotcut_lang", lang);
+      } catch (e) {
+        // Ignore localStorage quota/private browsing errors
+      }
     }
+    window.setLanguage = setLanguage;
 
-    // Language selector change
+    // Language selector change listener
     const langSelector = document.getElementById("langSelector");
-    langSelector.addEventListener("change", (e) => {
-      setLanguage(e.target.value);
-    });
+    if (langSelector) {
+      langSelector.addEventListener("change", (e) => {
+        setLanguage(e.target.value);
+      });
+      langSelector.addEventListener("input", (e) => {
+        setLanguage(e.target.value);
+      });
+    }
 
     // Auto-detect browser language or load from localStorage
     function initLanguage() {
-      const saved = localStorage.getItem("kvrouite_shotcut_lang");
+      let saved = null;
+      try {
+        saved = localStorage.getItem("kvrouite_shotcut_lang");
+      } catch (e) {}
+
       if (saved && i18n[saved]) {
-        langSelector.value = saved;
         setLanguage(saved);
         return;
       }
       const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
       const code = navLang.split("-")[0];
       if (i18n[code]) {
-        langSelector.value = code;
         setLanguage(code);
       } else {
         setLanguage("en");
