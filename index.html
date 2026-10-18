@@ -43,8 +43,13 @@
             <option value="pl" class="bg-slate-800 text-slate-200">Polski (PL)</option>
           </select>
         </div>
-        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-300 hover:text-white transition hidden sm:inline font-medium">KVRouite</a>
-        <a href="https://shotcut.org" target="_blank" class="text-slate-300 hover:text-white transition hidden sm:inline font-medium">Shotcut</a>
+        <!-- Buy Me a Coffee button -->
+        <a href="https://buymeacoffee.com/xmikrobi" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 hover:text-amber-200 border border-amber-500/40 transition text-xs font-semibold shadow-sm" title="Buy me a coffee">
+          <span>☕</span>
+          <span id="t_coffeeBtn" class="hidden sm:inline">Buy me a coffee</span>
+        </a>
+        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-300 hover:text-white transition hidden md:inline font-medium">KVRouite</a>
+        <a href="https://shotcut.org" target="_blank" class="text-slate-300 hover:text-white transition hidden md:inline font-medium">Shotcut</a>
       </div>
     </div>
   </header>
@@ -234,9 +239,15 @@
 
   <!-- Footer -->
   <footer class="bg-slate-950/80 backdrop-blur-md border-t border-slate-800 py-6 text-center text-xs text-slate-400 mt-auto">
-    <div class="max-w-5xl mx-auto px-4 space-y-1">
+    <div class="max-w-5xl mx-auto px-4 space-y-2">
       <p id="t_footerTitle">KVRouite to Shotcut Converter &bull; Built with standard MLT XML specifications</p>
       <p id="t_footerDisclaimer" class="text-slate-500">Not officially affiliated with KVRouite or Meltytech/Shotcut.</p>
+      <div class="pt-2">
+        <a href="https://buymeacoffee.com/xmikrobi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 hover:text-amber-200 border border-amber-500/30 transition text-xs font-medium shadow-sm">
+          <span>☕</span>
+          <span id="t_coffeeFooter">Found this useful? Buy me a coffee</span>
+        </a>
+      </div>
     </div>
   </footer>
 
@@ -276,6 +287,8 @@
         btnReset: "Load another project",
         footerTitle: "KVRouite to Shotcut Converter • Built with standard MLT XML specifications",
         footerDisclaimer: "Not officially affiliated with KVRouite or Meltytech/Shotcut.",
+        coffeeBtn: "Buy me a coffee",
+        coffeeFooter: "Found this useful? Buy me a coffee",
         rawBadge: "Raw: "
       },
       de: {
@@ -308,6 +321,8 @@
         btnReset: "Anderes Projekt laden",
         footerTitle: "KVRouite zu Shotcut Konverter • Erstellt nach Standard-MLT-XML-Spezifikationen",
         footerDisclaimer: "Keine offizielle Verbindung zu KVRouite oder Meltytech/Shotcut.",
+        coffeeBtn: "Kaffee spendieren",
+        coffeeFooter: "War das nützlich? Spendier mir einen Kaffee",
         rawBadge: "Roh: "
       },
       fr: {
@@ -340,6 +355,8 @@
         btnReset: "Charger un autre projet",
         footerTitle: "Convertisseur KVRouite vers Shotcut • Conforme aux spécifications MLT XML",
         footerDisclaimer: "Non affilié officiellement à KVRouite ou Meltytech/Shotcut.",
+        coffeeBtn: "Offrez-moi un café",
+        coffeeFooter: "Vous avez trouvé cela utile ? Offrez-moi un café",
         rawBadge: "Brut : "
       },
       hu: {
@@ -372,6 +389,8 @@
         btnReset: "Másik projekt betöltése",
         footerTitle: "KVRouite &rarr; Shotcut konverter • Standard MLT XML specifikáció alapján",
         footerDisclaimer: "Nem áll hivatalos kapcsolatban a KVRouite vagy a Meltytech/Shotcut fejlesztőivel.",
+        coffeeBtn: "Hívj meg egy kávéra",
+        coffeeFooter: "Ha hasznosnak találtad, hívj meg egy kávéra",
         rawBadge: "Nyers: "
       },
       pl: {
@@ -404,6 +423,8 @@
         btnReset: "Wczytaj inny projekt",
         footerTitle: "Konwerter KVRouite do Shotcut • Zbudowany zgodnie ze standardem MLT XML",
         footerDisclaimer: "Brak oficjalnego powiązania z KVRouite lub Meltytech/Shotcut.",
+        coffeeBtn: "Postaw mi kawę",
+        coffeeFooter: "Uważasz to za przydatne? Postaw mi kawę",
         rawBadge: "Surowy: "
       }
     };
@@ -464,6 +485,8 @@
       safeSetText("t_btnReset", t.btnReset);
       safeSetHtml("t_footerTitle", t.footerTitle);
       safeSetText("t_footerDisclaimer", t.footerDisclaimer);
+      safeSetText("t_coffeeBtn", t.coffeeBtn);
+      safeSetText("t_coffeeFooter", t.coffeeFooter);
 
       // Update badge if loaded
       if (loadedProject) {
