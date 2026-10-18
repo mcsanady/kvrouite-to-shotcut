@@ -23,12 +23,23 @@
         <span class="text-3xl">🎬</span>
         <div>
           <h1 class="text-lg font-bold text-slate-900 leading-tight">KVRouite &rarr; Shotcut (.mlt)</h1>
-          <p class="text-xs text-slate-500">Fast, 100% Client-Side Project Converter</p>
+          <p id="t_headerSubtitle" class="text-xs text-slate-500">Fast, 100% Client-Side Project Converter</p>
         </div>
       </div>
-      <div class="flex items-center space-x-4 text-sm">
-        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-600 hover:text-blue-600 transition">KVRouite</a>
-        <a href="https://shotcut.org" target="_blank" class="text-slate-600 hover:text-blue-600 transition">Shotcut</a>
+      <div class="flex items-center space-x-3 text-sm">
+        <!-- Language Selector -->
+        <div class="flex items-center space-x-1.5 bg-slate-100 rounded-lg p-1 border border-slate-200">
+          <span class="text-xs pl-1">🌐</span>
+          <select id="langSelector" class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer pr-1">
+            <option value="en">English (EN)</option>
+            <option value="de">Deutsch (DE)</option>
+            <option value="fr">Français (FR)</option>
+            <option value="hu">Magyar (HU)</option>
+            <option value="pl">Polski (PL)</option>
+          </select>
+        </div>
+        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-600 hover:text-blue-600 transition hidden sm:inline">KVRouite</a>
+        <a href="https://shotcut.org" target="_blank" class="text-slate-600 hover:text-blue-600 transition hidden sm:inline">Shotcut</a>
       </div>
     </div>
   </header>
@@ -38,13 +49,13 @@
 
     <!-- Hero / Intro -->
     <div class="text-center space-y-2 max-w-2xl mx-auto">
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Convert KVRouite Projects to Shotcut</h2>
-      <p class="text-slate-600 text-sm sm:text-base">
+      <h2 id="t_heroTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Convert KVRouite Projects to Shotcut</h2>
+      <p id="t_heroDesc" class="text-slate-600 text-sm sm:text-base">
         Drag and drop your <code class="bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono font-bold">.KVRouiteproj</code> file. 
         All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.
       </p>
       <div class="inline-flex items-center space-x-1.5 text-xs text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-medium">
-        <span>🔒 100% Private & Client-side: Your files never leave your computer.</span>
+        <span id="t_privacyBadge">🔒 100% Private & Client-side: Your files never leave your computer.</span>
       </div>
     </div>
 
@@ -61,9 +72,9 @@
           </svg>
         </div>
         <div class="text-base font-semibold text-slate-700">
-          <span class="text-blue-600 underline">Choose a .KVRouiteproj file</span> or drag & drop it here
+          <span id="t_dropAction" class="text-blue-600 underline">Choose a .KVRouiteproj file</span> <span id="t_dropOr">or drag & drop it here</span>
         </div>
-        <p class="text-xs text-slate-400">Supports all KVRouite v6 and v7 project files</p>
+        <p id="t_dropSub" class="text-xs text-slate-400">Supports all KVRouite v6 and v7 project files</p>
       </div>
     </div>
 
@@ -84,19 +95,19 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-sm">
           <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-            <span class="block text-slate-400 text-xs font-medium">Clips</span>
+            <span id="t_cardClips" class="block text-slate-400 text-xs font-medium">Clips</span>
             <span id="clipCount" class="text-base font-bold text-slate-800">0</span>
           </div>
           <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-            <span class="block text-slate-400 text-xs font-medium">Cuts Defined</span>
+            <span id="t_cardCuts" class="block text-slate-400 text-xs font-medium">Cuts Defined</span>
             <span id="cutCount" class="text-base font-bold text-slate-800">0</span>
           </div>
           <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-            <span class="block text-slate-400 text-xs font-medium">Crossfades</span>
+            <span id="t_cardCrossfades" class="block text-slate-400 text-xs font-medium">Crossfades</span>
             <span id="crossfadeCount" class="text-base font-bold text-slate-800">0</span>
           </div>
           <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-            <span class="block text-slate-400 text-xs font-medium">Overlays</span>
+            <span id="t_cardOverlays" class="block text-slate-400 text-xs font-medium">Overlays</span>
             <span id="overlayCount" class="text-base font-bold text-slate-800">0</span>
           </div>
         </div>
@@ -104,7 +115,7 @@
         <!-- Video Source Files List -->
         <details class="text-xs text-slate-600">
           <summary class="cursor-pointer font-medium hover:text-blue-600 transition select-none">
-            View referenced video files (<span id="sourceFileCount">0</span>)
+            <span id="t_viewSources">View referenced video files</span> (<span id="sourceFileCount">0</span>)
           </summary>
           <ul id="sourceFileList" class="mt-2 pl-4 list-disc space-y-1 font-mono text-slate-500 break-all max-h-36 overflow-y-auto">
           </ul>
@@ -115,13 +126,13 @@
       <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
         <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
           <span>⚙️</span>
-          <span>Shotcut Project Settings</span>
+          <span id="t_settingsTitle">Shotcut Project Settings</span>
         </h3>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
           <!-- Resolution -->
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Resolution</label>
+            <label id="t_labelResolution" class="block text-xs font-semibold text-slate-600 mb-1">Resolution</label>
             <select id="settingResolution" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="3840x2160" selected>4K UHD (3840x2160)</option>
               <option value="1920x1080">1080p FHD (1920x1080)</option>
@@ -132,7 +143,7 @@
 
           <!-- Frame Rate -->
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Frame Rate</label>
+            <label id="t_labelFps" class="block text-xs font-semibold text-slate-600 mb-1">Frame Rate</label>
             <select id="settingFps" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <option value="25" selected>25 fps (PAL / European GoPro)</option>
               <option value="30">30 fps</option>
@@ -145,10 +156,10 @@
 
           <!-- Default Crossfade -->
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">Default Crossfade</label>
+            <label id="t_labelXfade" class="block text-xs font-semibold text-slate-600 mb-1">Default Crossfade</label>
             <div class="flex items-center space-x-2">
               <input type="number" id="settingDefaultXfade" value="2.0" step="0.5" min="0" max="10" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              <span class="text-xs text-slate-500">sec</span>
+              <span id="t_secUnit" class="text-xs text-slate-500">sec</span>
             </div>
           </div>
         </div>
@@ -156,7 +167,7 @@
         <!-- Path Rewriting (Optional) -->
         <div class="pt-2 border-t border-slate-100">
           <label class="block text-xs font-semibold text-slate-600 mb-1">
-            Path Remapping <span class="text-slate-400 font-normal">(Optional: replace folder path if opening on a different computer/OS)</span>
+            <span id="t_pathRemappingTitle">Path Remapping</span> <span id="t_pathRemappingDesc" class="text-slate-400 font-normal">(Optional: replace folder path if opening on a different computer/OS)</span>
           </label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input type="text" id="pathFind" placeholder="Original folder path (e.g. /media/csm/GoPro01/DCIM)" class="text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-mono text-slate-700" />
@@ -171,11 +182,11 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
-          <span>Generate & Download Shotcut (.mlt)</span>
+          <span id="t_btnGenerate">Generate & Download Shotcut (.mlt)</span>
         </button>
 
         <button id="btnReset" class="text-xs text-slate-500 hover:text-red-600 transition underline">
-          Load another project
+          <span id="t_btnReset">Load another project</span>
         </button>
       </div>
 
@@ -195,13 +206,227 @@
   <!-- Footer -->
   <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
     <div class="max-w-5xl mx-auto px-4 space-y-1">
-      <p>KVRouite to Shotcut Converter &bull; Built with standard MLT XML specifications</p>
-      <p class="text-slate-400">Not officially affiliated with KVRouite or Meltytech/Shotcut.</p>
+      <p id="t_footerTitle">KVRouite to Shotcut Converter &bull; Built with standard MLT XML specifications</p>
+      <p id="t_footerDisclaimer" class="text-slate-400">Not officially affiliated with KVRouite or Meltytech/Shotcut.</p>
     </div>
   </footer>
 
-  <!-- Converter Core Logic (JavaScript) -->
+  <!-- Converter Core Logic & Translations -->
   <script>
+    // -------------------------------------------------------------------
+    // Internationalization (i18n) Dictionary
+    // -------------------------------------------------------------------
+    const i18n = {
+      en: {
+        headerSubtitle: "Fast, 100% Client-Side Project Converter",
+        heroTitle: "Convert KVRouite Projects to Shotcut",
+        heroDesc: "Drag and drop your .KVRouiteproj file. All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.",
+        privacyBadge: "🔒 100% Private & Client-side: Your files never leave your computer.",
+        dropAction: "Choose a .KVRouiteproj file",
+        dropOr: "or drag & drop it here",
+        dropSub: "Supports all KVRouite v6 and v7 project files",
+        cardClips: "Clips",
+        cardCuts: "Cuts Defined",
+        cardCrossfades: "Crossfades",
+        cardOverlays: "Overlays",
+        viewSources: "View referenced video files",
+        settingsTitle: "Shotcut Project Settings",
+        labelResolution: "Resolution",
+        labelFps: "Frame Rate",
+        labelXfade: "Default Crossfade",
+        secUnit: "sec",
+        pathRemappingTitle: "Path Remapping",
+        pathRemappingDesc: "(Optional: replace folder path if opening on a different computer/OS)",
+        pathFindPlaceholder: "Original folder path (e.g. /media/csm/GoPro01/DCIM)",
+        pathReplacePlaceholder: "New folder path (e.g. D:\\GoPro\\DCIM)",
+        btnGenerate: "Generate & Download Shotcut (.mlt)",
+        btnReset: "Load another project",
+        footerTitle: "KVRouite to Shotcut Converter • Built with standard MLT XML specifications",
+        footerDisclaimer: "Not officially affiliated with KVRouite or Meltytech/Shotcut.",
+        rawBadge: "Raw: "
+      },
+      de: {
+        headerSubtitle: "Schneller, 100% Client-seitiger Projekt-Konverter",
+        heroTitle: "KVRouite-Projekte in Shotcut konvertieren",
+        heroDesc: "Ziehe deine .KVRouiteproj-Datei hierher. Alle Schnitte, Überblendungen und mehrteiligen GoPro-Kapitel werden in eine native Shotcut-MLT-Timeline umgewandelt.",
+        privacyBadge: "🔒 100% Privat & Lokal: Deine Dateien verlassen niemals deinen Computer.",
+        dropAction: ".KVRouiteproj-Datei auswählen",
+        dropOr: "oder hierher ziehen",
+        dropSub: "Unterstützt alle KVRouite v6 und v7 Projektdateien",
+        cardClips: "Videoclips",
+        cardCuts: "Definierte Schnitte",
+        cardCrossfades: "Überblendungen",
+        cardOverlays: "Overlays",
+        viewSources: "Referenzierte Videodateien anzeigen",
+        settingsTitle: "Shotcut-Projekteinstellungen",
+        labelResolution: "Auflösung",
+        labelFps: "Bildwiederholrate (FPS)",
+        labelXfade: "Standard-Überblendung",
+        secUnit: "Sek.",
+        pathRemappingTitle: "Pfadanpassung",
+        pathRemappingDesc: "(Optional: Ordnerpfad ersetzen für anderes Betriebssystem/Computer)",
+        pathFindPlaceholder: "Ursprünglicher Pfad (z. B. /media/csm/GoPro01/DCIM)",
+        pathReplacePlaceholder: "Neuer Pfad (z. B. D:\\GoPro\\DCIM)",
+        btnGenerate: "Shotcut (.mlt) erzeugen & herunterladen",
+        btnReset: "Anderes Projekt laden",
+        footerTitle: "KVRouite zu Shotcut Konverter • Erstellt nach Standard-MLT-XML-Spezifikationen",
+        footerDisclaimer: "Keine offizielle Verbindung zu KVRouite oder Meltytech/Shotcut.",
+        rawBadge: "Roh: "
+      },
+      fr: {
+        headerSubtitle: "Convertisseur de projet rapide, 100% côté client",
+        heroTitle: "Convertir des projets KVRouite vers Shotcut",
+        heroDesc: "Glissez-déposez votre fichier .KVRouiteproj. Tous les découpages, fondus enchaînés et chapitres GoPro seront convertis dans une timeline Shotcut MLT native.",
+        privacyBadge: "🔒 100% Privé & Local : Vos fichiers ne quittent jamais votre ordinateur.",
+        dropAction: "Choisir un fichier .KVRouiteproj",
+        dropOr: "ou glissez-déposez-le ici",
+        dropSub: "Prend en charge tous les fichiers de projet KVRouite v6 et v7",
+        cardClips: "Clips vidéo",
+        cardCuts: "Coupes définies",
+        cardCrossfades: "Fondus enchaînés",
+        cardOverlays: "Superpositions",
+        viewSources: "Voir les fichiers vidéo référencés",
+        settingsTitle: "Paramètres du projet Shotcut",
+        labelResolution: "Résolution",
+        labelFps: "Fréquence d'images (FPS)",
+        labelXfade: "Fondu enchaîné par défaut",
+        secUnit: "sec",
+        pathRemappingTitle: "Réassignation des chemins",
+        pathRemappingDesc: "(Facultatif : remplacer le chemin du dossier si vous ouvrez sur un autre PC/OS)",
+        pathFindPlaceholder: "Chemin d'origine (ex. /media/csm/GoPro01/DCIM)",
+        pathReplacePlaceholder: "Nouveau chemin (ex. D:\\GoPro\\DCIM)",
+        btnGenerate: "Générer & Télécharger Shotcut (.mlt)",
+        btnReset: "Charger un autre projet",
+        footerTitle: "Convertisseur KVRouite vers Shotcut • Conforme aux spécifications MLT XML",
+        footerDisclaimer: "Non affilié officiellement à KVRouite ou Meltytech/Shotcut.",
+        rawBadge: "Brut : "
+      },
+      hu: {
+        headerSubtitle: "Gyors, 100%-ban böngészőben futó projekt-konvertáló",
+        heroTitle: "KVRouite projektek konvertálása Shotcutba",
+        heroDesc: "Húzd ide a .KVRouiteproj fájlodat. Az összes vágás, áttűnés és több részből álló GoPro fejezet automatikusan átkerül egy natív Shotcut MLT idővonalra.",
+        privacyBadge: "🔒 100% Biztonságos & Privát: A fájljaid sosem hagyják el a számítógépedet.",
+        dropAction: "Válassz egy .KVRouiteproj fájlt",
+        dropOr: "vagy húzd ide",
+        dropSub: "Minden KVRouite v6 és v7 projektfájlt támogat",
+        cardClips: "Klipek",
+        cardCuts: "Vágási szakasz",
+        cardCrossfades: "Áttűnés (Crossfade)",
+        cardOverlays: "Felirat / Overlay",
+        viewSources: "Hivatkozott videófájlok megtekintése",
+        settingsTitle: "Shotcut projekt beállítások",
+        labelResolution: "Felbontás",
+        labelFps: "Képkockasebesség (FPS)",
+        labelXfade: "Alapértelmezett áttűnés",
+        secUnit: "mp",
+        pathRemappingTitle: "Elérési utak átírása",
+        pathRemappingDesc: "(Opcionális: mappa elérési út csere másik gépen/rendszeren való megnyitáshoz)",
+        pathFindPlaceholder: "Eredeti mappa elérési útja (pl. /media/csm/GoPro01/DCIM)",
+        pathReplacePlaceholder: "Új mappa elérési útja (pl. D:\\GoPro\\DCIM)",
+        btnGenerate: "Shotcut (.mlt) generálása és letöltése",
+        btnReset: "Másik projekt betöltése",
+        footerTitle: "KVRouite &rarr; Shotcut konverter • Standard MLT XML specifikáció alapján",
+        footerDisclaimer: "Nem áll hivatalos kapcsolatban a KVRouite vagy a Meltytech/Shotcut fejlesztőivel.",
+        rawBadge: "Nyers: "
+      },
+      pl: {
+        headerSubtitle: "Szybki, w 100% działający w przeglądarce konwerter projektów",
+        heroTitle: "Konwertuj projekty KVRouite do formatu Shotcut",
+        heroDesc: "Przeciągnij i upuść plik .KVRouiteproj. Wszystkie cięcia, przejścia i wieloczęściowe rozdziały GoPro zostaną przekonwertowane na natywną oś czasu Shotcut MLT.",
+        privacyBadge: "🔒 100% Prywatności & Bezpieczeństwa: Twoje pliki nigdy nie opuszczają komputera.",
+        dropAction: "Wybierz plik .KVRouiteproj",
+        dropOr: "lub przeciągnij go tutaj",
+        dropSub: "Obsługuje wszystkie pliki projektów KVRouite v6 i v7",
+        cardClips: "Klipy wideo",
+        cardCuts: "Zdefiniowane cięcia",
+        cardCrossfades: "Przenikania (Crossfade)",
+        cardOverlays: "Nakładki",
+        viewSources: "Pokaż powiązane pliki wideo",
+        settingsTitle: "Ustawienia projektu Shotcut",
+        labelResolution: "Rozdzielczość",
+        labelFps: "Liczba klatek na sekundę (FPS)",
+        labelXfade: "Domyślne przejście",
+        secUnit: "sek.",
+        pathRemappingTitle: "Zmień ścieżki plików",
+        pathRemappingDesc: "(Opcjonalnie: zastąp ścieżkę folderu w przypadku otwarcia na innym komputerze/systemie)",
+        pathFindPlaceholder: "Oryginalna ścieżka folderu (np. /media/csm/GoPro01/DCIM)",
+        pathReplacePlaceholder: "Nowa ścieżka folderu (np. D:\\GoPro\\DCIM)",
+        btnGenerate: "Generuj i pobierz Shotcut (.mlt)",
+        btnReset: "Wczytaj inny projekt",
+        footerTitle: "Konwerter KVRouite do Shotcut • Zbudowany zgodnie ze standardem MLT XML",
+        footerDisclaimer: "Brak oficjalnego powiązania z KVRouite lub Meltytech/Shotcut.",
+        rawBadge: "Surowy: "
+      }
+    };
+
+    let currentLang = "en";
+
+    function setLanguage(lang) {
+      if (!i18n[lang]) lang = "en";
+      currentLang = lang;
+      const t = i18n[lang];
+
+      document.getElementById("t_headerSubtitle").textContent = t.headerSubtitle;
+      document.getElementById("t_heroTitle").textContent = t.heroTitle;
+      document.getElementById("t_heroDesc").childNodes[0].textContent = t.heroDesc.split(".KVRouiteproj")[0];
+      document.getElementById("t_heroDesc").childNodes[2].textContent = t.heroDesc.split(".KVRouiteproj")[1] || "";
+      document.getElementById("t_privacyBadge").textContent = t.privacyBadge;
+      document.getElementById("t_dropAction").textContent = t.dropAction;
+      document.getElementById("t_dropOr").textContent = t.dropOr;
+      document.getElementById("t_dropSub").textContent = t.dropSub;
+      document.getElementById("t_cardClips").textContent = t.cardClips;
+      document.getElementById("t_cardCuts").textContent = t.cardCuts;
+      document.getElementById("t_cardCrossfades").textContent = t.cardCrossfades;
+      document.getElementById("t_cardOverlays").textContent = t.cardOverlays;
+      document.getElementById("t_viewSources").textContent = t.viewSources;
+      document.getElementById("t_settingsTitle").textContent = t.settingsTitle;
+      document.getElementById("t_labelResolution").textContent = t.labelResolution;
+      document.getElementById("t_labelFps").textContent = t.labelFps;
+      document.getElementById("t_labelXfade").textContent = t.labelXfade;
+      document.getElementById("t_secUnit").textContent = t.secUnit;
+      document.getElementById("t_pathRemappingTitle").textContent = t.pathRemappingTitle;
+      document.getElementById("t_pathRemappingDesc").textContent = t.pathRemappingDesc;
+      document.getElementById("pathFind").placeholder = t.pathFindPlaceholder;
+      document.getElementById("pathReplace").placeholder = t.pathReplacePlaceholder;
+      document.getElementById("t_btnGenerate").textContent = t.btnGenerate;
+      document.getElementById("t_btnReset").textContent = t.btnReset;
+      document.getElementById("t_footerTitle").innerHTML = t.footerTitle;
+      document.getElementById("t_footerDisclaimer").textContent = t.footerDisclaimer;
+
+      // Update badge if loaded
+      if (loadedProject) {
+        const durations = loadedProject.video_durations || [];
+        const totalSec = durations.reduce((acc, d) => acc + Number(d || 0), 0);
+        document.getElementById("totalDurationBadge").textContent = `${t.rawBadge}${formatTime(totalSec)}`;
+      }
+
+      localStorage.setItem("kvrouite_shotcut_lang", lang);
+    }
+
+    // Language selector change
+    const langSelector = document.getElementById("langSelector");
+    langSelector.addEventListener("change", (e) => {
+      setLanguage(e.target.value);
+    });
+
+    // Auto-detect browser language or load from localStorage
+    function initLanguage() {
+      const saved = localStorage.getItem("kvrouite_shotcut_lang");
+      if (saved && i18n[saved]) {
+        langSelector.value = saved;
+        setLanguage(saved);
+        return;
+      }
+      const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+      const code = navLang.split("-")[0];
+      if (i18n[code]) {
+        langSelector.value = code;
+        setLanguage(code);
+      } else {
+        setLanguage("en");
+      }
+    }
+
     // State
     let loadedProject = null;
     let loadedFileName = "";
@@ -284,7 +509,8 @@
       document.getElementById("projectName").textContent = filename;
       const durations = proj.video_durations || [];
       const totalSec = durations.reduce((acc, d) => acc + Number(d || 0), 0);
-      document.getElementById("totalDurationBadge").textContent = `Raw: ${formatTime(totalSec)}`;
+      const t = i18n[currentLang] || i18n.en;
+      document.getElementById("totalDurationBadge").textContent = `${t.rawBadge}${formatTime(totalSec)}`;
 
       document.getElementById("clipCount").textContent = proj.playlist ? proj.playlist.length : 0;
       document.getElementById("cutCount").textContent = proj.cut_intervals ? proj.cut_intervals.length : 0;
@@ -357,7 +583,7 @@
       for (const [k_von, k_bis] of keeps) {
         const grenzen = [k_von];
         for (const [s, e] of kanten) {
-          if (k_von <= s && e <= k_bis) {
+          if (k_von <= s and e <= k_bis) {
             grenzen.push(s, e);
           }
         }
@@ -469,7 +695,6 @@
           } else if (Math.abs(cend - totalDur) < 0.1) {
             skipList.push([cstart, cend, -1]); // Endcut
           } else {
-            // Check if specific fade defined, else use default
             const key = `${cstart.toFixed(3)}_${cend.toFixed(3)}`;
             const xf = cutFades[key] !== undefined ? cutFades[key] : defaultXfade;
             skipList.push([cstart, cend, xf]);
@@ -647,6 +872,9 @@
         showError("Export Failed", err.message || err);
       }
     });
+
+    // Run on startup
+    initLanguage();
   </script>
 </body>
 </html>
