@@ -47,6 +47,24 @@
   <!-- Main Container -->
   <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full space-y-6">
 
+    <!-- Notice / Disclaimer Banner -->
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 text-amber-900 shadow-sm space-y-2">
+      <div class="flex items-start space-x-3">
+        <span class="text-xl sm:text-2xl mt-0.5">ℹ️</span>
+        <div class="space-y-1 text-xs sm:text-sm">
+          <h3 class="font-bold flex items-center space-x-1.5 text-amber-950">
+            <span id="t_bannerTitle">Important Project & Compatibility Notice</span>
+          </h3>
+          <p id="t_bannerAbout" class="leading-relaxed">
+            This tool converts project files from <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="underline font-semibold text-amber-950 hover:text-blue-700 transition">KVRouite</a> (an advanced GoPro video & GPX telemetry editor) to <a href="https://shotcut.org" target="_blank" class="underline font-semibold text-amber-950 hover:text-blue-700 transition">Shotcut</a>.
+          </p>
+          <p id="t_bannerWarning" class="leading-relaxed text-amber-800">
+            <strong>Please note:</strong> Using an external NLE like Shotcut is <em>not the recommended</em> workflow for KVRouite. Native features such as Voice Removal (AI), Traffic Noise Damping, Merge-Fades, and 360° keyframed views are only supported by KVRouite's built-in GES renderer and cannot be exported to Shotcut. Furthermore, future KVRouite versions may change project formats and are not guaranteed to remain compatible with this converter.
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- Hero / Intro -->
     <div class="text-center space-y-2 max-w-2xl mx-auto">
       <h2 id="t_heroTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Convert KVRouite Projects to Shotcut</h2>
@@ -219,6 +237,9 @@
     const i18n = {
       en: {
         headerSubtitle: "Fast, 100% Client-Side Project Converter",
+        bannerTitle: "Important Project & Compatibility Notice",
+        bannerAbout: "This tool converts project files from <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (an advanced GoPro video & GPX telemetry editor) to <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerWarning: "<strong>Please note:</strong> Using an external NLE like Shotcut is <em>not the recommended</em> workflow for KVRouite. Native features such as Voice Removal (AI), Traffic Noise Damping, Merge-Fades, and 360° keyframed views are only supported by KVRouite's built-in GES renderer and cannot be exported to Shotcut. Furthermore, future KVRouite versions may change project formats and are not guaranteed to remain compatible with this converter.",
         heroTitle: "Convert KVRouite Projects to Shotcut",
         heroDesc: "Drag and drop your .KVRouiteproj file. All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.",
         privacyBadge: "🔒 100% Private & Client-side: Your files never leave your computer.",
@@ -247,6 +268,9 @@
       },
       de: {
         headerSubtitle: "Schneller, 100% Client-seitiger Projekt-Konverter",
+        bannerTitle: "Wichtiger Projekt- & Kompatibilitätshinweis",
+        bannerAbout: "Dieses Tool konvertiert Projektdateien von <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (ein fortschrittlicher GoPro Video- & GPX-Telemetry-Editor) nach <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerWarning: "<strong>Wichtiger Hinweis:</strong> Ein externer Editor wie Shotcut ist <em>nicht der empfohlene</em> Workflow für KVRouite. Native Funktionen wie Stimm-Entfernung (KI), Verkehrslärm-Dämpfung, Merge-Fades und 360°-Keyframe-Blickwinkel werden nur vom internen GES-Renderer unterstützt und können nicht nach Shotcut exportiert werden. Zukünftige KVRouite-Versionen könnten das Format ändern und sind möglicherweise nicht mehr mit diesem Konverter kompatibel.",
         heroTitle: "KVRouite-Projekte in Shotcut konvertieren",
         heroDesc: "Ziehe deine .KVRouiteproj-Datei hierher. Alle Schnitte, Überblendungen und mehrteiligen GoPro-Kapitel werden in eine native Shotcut-MLT-Timeline umgewandelt.",
         privacyBadge: "🔒 100% Privat & Lokal: Deine Dateien verlassen niemals deinen Computer.",
@@ -275,6 +299,9 @@
       },
       fr: {
         headerSubtitle: "Convertisseur de projet rapide, 100% côté client",
+        bannerTitle: "Avis important sur le projet et la compatibilité",
+        bannerAbout: "Cet outil convertit les fichiers de projet de <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (éditeur avancé de vidéo GoPro et télémétrie GPX) vers <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerWarning: "<strong>Remarque :</strong> L'utilisation d'un éditeur externe comme Shotcut n'est <em>pas la méthode recommandée</em> pour KVRouite. Les fonctionnalités natives telles que la suppression de voix (IA), l'atténuation du bruit de circulation, les fondus d'assemblage et la vue 360° avec images clés ne sont prises en charge que par le moteur GES interne de KVRouite et ne peuvent pas être exportées vers Shotcut. De plus, les futures versions de KVRouite peuvent modifier le format de projet sans garantie de compatibilité avec ce convertisseur.",
         heroTitle: "Convertir des projets KVRouite vers Shotcut",
         heroDesc: "Glissez-déposez votre fichier .KVRouiteproj. Tous les découpages, fondus enchaînés et chapitres GoPro seront convertis dans une timeline Shotcut MLT native.",
         privacyBadge: "🔒 100% Privé & Local : Vos fichiers ne quittent jamais votre ordinateur.",
@@ -303,6 +330,9 @@
       },
       hu: {
         headerSubtitle: "Gyors, 100%-ban böngészőben futó projekt-konvertáló",
+        bannerTitle: "Fontos tájékoztatás és kompatibilitási figyelmeztetés",
+        bannerAbout: "Ez a segédprogram a <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (GoPro videó és GPX telemetria szerkesztő szoftver) projektfájljait alakítja át <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a> formátumra.",
+        bannerWarning: "<strong>Fontos megjegyzés:</strong> A külső vágóprogram (Shotcut) használata <em>nem az ajánlott</em> módja a KVRouite használatának. A KVRouite saját beépített funkciói (mint az AI hangtisztítás / beszédeltávolítás, a közlekedési zaj csillapítása, a Merge-Fade átmenetek és a 360°-os kulcskockás kameranézetek) kizárólag a KVRouite belső GES motorjában érhetők el, és nem vihetők át Shotcutba. Emellett a jövőbeli KVRouite verziók módosíthatják a fájlformátumot, így azok kompatibilitása nem garantált ezzel a konverterrel.",
         heroTitle: "KVRouite projektek konvertálása Shotcutba",
         heroDesc: "Húzd ide a .KVRouiteproj fájlodat. Az összes vágás, áttűnés és több részből álló GoPro fejezet automatikusan átkerül egy natív Shotcut MLT idővonalra.",
         privacyBadge: "🔒 100% Biztonságos & Privát: A fájljaid sosem hagyják el a számítógépedet.",
@@ -331,6 +361,9 @@
       },
       pl: {
         headerSubtitle: "Szybki, w 100% działający w przeglądarce konwerter projektów",
+        bannerTitle: "Ważna informacja o projekcie i kompatybilności",
+        bannerAbout: "To narzędzie konwertuje pliki projektów z <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (zaawansowany edytor wideo GoPro i telemetrii GPX) do programu <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerWarning: "<strong>Uwaga:</strong> Korzystanie z zewnętrznego edytora, takiego jak Shotcut, <em>nie jest zalecanym</em> sposobem pracy z KVRouite. Wbudowane funkcje, takie jak usuwanie głosu (AI), tłumienie hałasu ulicznego, płynne łączenia (Merge-Fades) oraz widoki 360° z klatkami kluczowymi, są obsługiwane wyłącznie przez wewnętrzny silnik GES programu KVRouite i nie mogą być wyeksportowane do programu Shotcut. Ponadto przyszłe wersje KVRouite mogą zmienić format projektu i nie ma gwarancji, że zachowają zgodność z tym konwerterem.",
         heroTitle: "Konwertuj projekty KVRouite do formatu Shotcut",
         heroDesc: "Przeciągnij i upuść plik .KVRouiteproj. Wszystkie cięcia, przejścia i wieloczęściowe rozdziały GoPro zostaną przekonwertowane na natywną oś czasu Shotcut MLT.",
         privacyBadge: "🔒 100% Prywatności & Bezpieczeństwa: Twoje pliki nigdy nie opuszczają komputera.",
@@ -367,6 +400,10 @@
       const t = i18n[lang];
 
       document.getElementById("t_headerSubtitle").textContent = t.headerSubtitle;
+      document.getElementById("t_bannerTitle").textContent = t.bannerTitle;
+      document.getElementById("t_bannerAbout").innerHTML = t.bannerAbout;
+      document.getElementById("t_bannerWarning").innerHTML = t.bannerWarning;
+
       document.getElementById("t_heroTitle").textContent = t.heroTitle;
       document.getElementById("t_heroDesc").childNodes[0].textContent = t.heroDesc.split(".KVRouiteproj")[0];
       document.getElementById("t_heroDesc").childNodes[2].textContent = t.heroDesc.split(".KVRouiteproj")[1] || "";
@@ -583,7 +620,7 @@
       for (const [k_von, k_bis] of keeps) {
         const grenzen = [k_von];
         for (const [s, e] of kanten) {
-          if (k_von <= s and e <= k_bis) {
+          if (k_von <= s && e <= k_bis) {
             grenzen.push(s, e);
           }
         }
@@ -644,6 +681,16 @@
         }
       }
       return results;
+    }
+
+    // Convert raw source timestamp to output timeline timestamp (_auf_ausgabe logic)
+    function aufAusgabe(rohzeit, abbildung) {
+      for (const [rohVon, rohBis, outTime] of abbildung) {
+        if (rohzeit >= rohVon && rohzeit <= rohBis) {
+          return outTime + (rohzeit - rohVon);
+        }
+      }
+      return null;
     }
 
     function escapeXml(str) {
@@ -736,13 +783,16 @@
         });
         xml += `  </playlist>\n`;
 
-        // Assemble pieces & transition tractors
+        // Assemble pieces & transition tractors + build timeline mapping for overlays
         const playlistEntries = [];
         const transitionTractors = [];
+        const abbildung = []; // [raw_start, raw_end, out_time_s]
         let transCounter = 0;
+        let timelineSecCursor = 0.0;
 
         for (let i = 0; i < stuecke.length; i++) {
           const [von, bis, blDavor, blDanach] = stuecke[i];
+          const segDuration = bis - von;
 
           // Transition before
           if (i > 0 && blDavor > 0) {
@@ -782,7 +832,8 @@
             trXml += `  </tractor>\n`;
 
             transitionTractors.push(trXml);
-            playlistEntries.push({ type: 'tractor', id: tId, frames: transFrames });
+            playlistEntries.push({ type: 'tractor', id: tId, frames: transFrames, durationS: transDur });
+            timelineSecCursor += transDur;
           }
 
           // Solo section
@@ -793,9 +844,14 @@
             for (const [pIdx, pSt, pEn] of parts) {
               const inF = secToFrame(pSt);
               const outF = Math.max(inF, secToFrame(pEn) - 1);
-              playlistEntries.push({ type: 'entry', producer: `producer${pIdx}`, in: inF, out: outF, frames: outF - inF + 1 });
+              const durF = outF - inF + 1;
+              playlistEntries.push({ type: 'entry', producer: `producer${pIdx}`, in: inF, out: outF, frames: durF });
+              timelineSecCursor += (pEn - pSt);
             }
           }
+
+          // Record mapping: raw piece [von, bis] corresponds to output timeline
+          abbildung.push([von, bis, timelineSecCursor - segDuration]);
         }
 
         // Add transition tractors to XML
@@ -818,6 +874,107 @@
         });
         xml += `  </playlist>\n`;
 
+        // Optional Track V2 for Overlays (Transformed with _auf_ausgabe)
+        const rawOverlays = proj.overlays || [];
+        const validOverlays = [];
+
+        rawOverlays.forEach((ov) => {
+          const rawStart = Number(ov.start || 0);
+          const rawEnd = Number(ov.end || 0);
+          if (rawEnd <= rawStart) return;
+
+          // Convert raw time to output time
+          let outStart = aufAusgabe(rawStart, abbildung);
+          let outEnd = aufAusgabe(rawEnd, abbildung);
+
+          // If completely within a cut, drop it
+          if (outStart === null && outEnd === null) return;
+          if (outStart === null) outStart = aufAusgabe(rawEnd, abbildung);
+          if (outEnd === null) outEnd = outStart + (rawEnd - rawStart);
+
+          let oImg = ov.image || "";
+          if (pathFind && pathReplace) {
+            oImg = oImg.split(pathFind).join(pathReplace);
+          }
+
+          validOverlays.push({
+            image: oImg,
+            start: outStart,
+            end: Math.max(outStart + 0.1, outEnd),
+            fadeIn: Number(ov.fade_in || 0),
+            fadeOut: Number(ov.fade_out || 0)
+          });
+        });
+
+        const hasOverlays = validOverlays.length > 0;
+        let v2PlaylistXml = "";
+
+        if (hasOverlays) {
+          validOverlays.sort((a, b) => a.start - b.start);
+
+          v2PlaylistXml += `  <playlist id="playlist1">\n`;
+          v2PlaylistXml += `    <property name="shotcut:video">1</property>\n`;
+          v2PlaylistXml += `    <property name="shotcut:name">V2 (Overlays)</property>\n`;
+
+          let currentCursorF = 0;
+          validOverlays.forEach((ov, oIdx) => {
+            const oStartF = Math.max(0, secToFrame(ov.start));
+            const oEndF = Math.max(oStartF + 1, secToFrame(ov.end));
+            const oLenF = oEndF - oStartF;
+            const oProdId = `producer_ovl_${oIdx}`;
+
+            // Overlay Producer
+            xml += `  <producer id="${oProdId}" in="0" out="${oLenF - 1}">\n`;
+            xml += `    <property name="length">${oLenF}</property>\n`;
+            xml += `    <property name="eof">pause</property>\n`;
+            xml += `    <property name="resource">${escapeXml(ov.image)}</property>\n`;
+            xml += `    <property name="mlt_service">qimage</property>\n`;
+            xml += `    <property name="mlt_image_format">rgba</property>\n`;
+            xml += `    <property name="aspect_ratio">1</property>\n`;
+
+            // Fade in filter
+            if (ov.fadeIn > 0) {
+              const finFrames = Math.max(1, secToFrame(ov.fadeIn));
+              xml += `    <filter id="filter_ovl_${oIdx}_fadein">\n`;
+              xml += `      <property name="start">1</property>\n`;
+              xml += `      <property name="level">1</property>\n`;
+              xml += `      <property name="mlt_service">brightness</property>\n`;
+              xml += `      <property name="shotcut:filter">fadeInBrightness</property>\n`;
+              xml += `      <property name="alpha">00:00:00.000=0;${ov.fadeIn.toFixed(3)}=1</property>\n`;
+              xml += `      <property name="shotcut:animIn">${finFrames}</property>\n`;
+              xml += `    </filter>\n`;
+            }
+
+            // Fade out filter
+            if (ov.fadeOut > 0) {
+              const foutFrames = Math.max(1, secToFrame(ov.fadeOut));
+              const durS = ov.end - ov.start;
+              const foutStartS = Math.max(0, durS - ov.fadeOut);
+              xml += `    <filter id="filter_ovl_${oIdx}_fadeout">\n`;
+              xml += `      <property name="start">1</property>\n`;
+              xml += `      <property name="level">1</property>\n`;
+              xml += `      <property name="mlt_service">brightness</property>\n`;
+              xml += `      <property name="shotcut:filter">fadeOutBrightness</property>\n`;
+              xml += `      <property name="alpha">${foutStartS.toFixed(3)}=1;${durS.toFixed(3)}=0</property>\n`;
+              xml += `      <property name="shotcut:animOut">${foutFrames}</property>\n`;
+              xml += `    </filter>\n`;
+            }
+            xml += `  </producer>\n`;
+
+            if (oStartF > currentCursorF) {
+              const blankLen = oStartF - currentCursorF;
+              v2PlaylistXml += `    <blank length="${blankLen}"/>\n`;
+              currentCursorF += blankLen;
+            }
+
+            v2PlaylistXml += `    <entry producer="${oProdId}" in="0" out="${oLenF - 1}"/>\n`;
+            currentCursorF += oLenF;
+          });
+
+          v2PlaylistXml += `  </playlist>\n`;
+          xml += v2PlaylistXml;
+        }
+
         // Black background
         xml += `  <producer id="black" in="0" out="${totalTimelineFrames + 99}">\n`;
         xml += `    <property name="length">${totalTimelineFrames + 200}</property>\n`;
@@ -839,6 +996,10 @@
         xml += `    <property name="shotcut:trackHeight">50</property>\n`;
         xml += `    <track producer="background"/>\n`;
         xml += `    <track producer="playlist0"/>\n`;
+        if (hasOverlays) {
+          xml += `    <track producer="playlist1"/>\n`;
+        }
+
         xml += `    <transition id="transition_bg_a">\n`;
         xml += `      <property name="a_track">0</property>\n`;
         xml += `      <property name="b_track">1</property>\n`;
@@ -846,12 +1007,23 @@
         xml += `      <property name="always_active">1</property>\n`;
         xml += `      <property name="combine">1</property>\n`;
         xml += `    </transition>\n`;
+
+        if (hasOverlays) {
+          xml += `    <transition id="transition_v2_v">\n`;
+          xml += `      <property name="a_track">1</property>\n`;
+          xml += `      <property name="b_track">2</property>\n`;
+          xml += `      <property name="mlt_service">qtblend</property>\n`;
+          xml += `      <property name="always_active">1</property>\n`;
+          xml += `    </transition>\n`;
+        }
+
         xml += `    <transition id="transition_bg_v">\n`;
         xml += `      <property name="a_track">0</property>\n`;
         xml += `      <property name="b_track">1</property>\n`;
         xml += `      <property name="mlt_service">qtblend</property>\n`;
         xml += `      <property name="always_active">1</property>\n`;
         xml += `    </transition>\n`;
+
         xml += `  </tractor>\n`;
         xml += `</mlt>\n`;
 
