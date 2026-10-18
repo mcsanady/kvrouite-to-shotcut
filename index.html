@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVRouite to Shotcut MLT Converter</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+  <style>
+    .drag-active {
+      border-color: #3b82f6 !important;
+      background-color: #eff6ff !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-3xl">🎬</span>
+        <div>
+          <h1 class="text-lg font-bold text-slate-900 leading-tight">KVRouite &rarr; Shotcut (.mlt)</h1>
+          <p class="text-xs text-slate-500">Fast, 100% Client-Side Project Converter</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4 text-sm">
+        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-600 hover:text-blue-600 transition">KVRouite</a>
+        <a href="https://shotcut.org" target="_blank" class="text-slate-600 hover:text-blue-600 transition">Shotcut</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full space-y-6">
+
+    <!-- Hero / Intro -->
+    <div class="text-center space-y-2 max-w-2xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Convert KVRouite Projects to Shotcut</h2>
+      <p class="text-slate-600 text-sm sm:text-base">
+        Drag and drop your <code class="bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono font-bold">.KVRouiteproj</code> file. 
+        All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.
+      </p>
+      <div class="inline-flex items-center space-x-1.5 text-xs text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-medium">
+        <span>🔒 100% Private & Client-side: Your files never leave your computer.</span>
+      </div>
+    </div>
+
+    <!-- Drop Zone Card -->
+    <div 
+      id="dropZone" 
+      class="border-2 border-dashed border-slate-300 rounded-2xl p-8 sm:p-12 text-center bg-white hover:border-blue-400 transition cursor-pointer shadow-sm relative group"
+    >
+      <input type="file" id="fileInput" accept=".KVRouiteproj,.json" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
+      <div class="space-y-3">
+        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+        </div>
+        <div class="text-base font-semibold text-slate-700">
+          <span class="text-blue-600 underline">Choose a .KVRouiteproj file</span> or drag & drop it here
+        </div>
+        <p class="text-xs text-slate-400">Supports all KVRouite v6 and v7 project files</p>
+      </div>
+    </div>
+
+    <!-- Project Details & Options (Hidden until loaded) -->
+    <div id="projectSection" class="hidden space-y-6">
+
+      <!-- Summary Info Card -->
+      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h3 class="font-bold text-slate-900 flex items-center space-x-2">
+            <span>📋</span>
+            <span id="projectName">project.KVRouiteproj</span>
+          </h3>
+          <span id="totalDurationBadge" class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-md border border-blue-200">
+            00:00:00
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-sm">
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <span class="block text-slate-400 text-xs font-medium">Clips</span>
+            <span id="clipCount" class="text-base font-bold text-slate-800">0</span>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <span class="block text-slate-400 text-xs font-medium">Cuts Defined</span>
+            <span id="cutCount" class="text-base font-bold text-slate-800">0</span>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <span class="block text-slate-400 text-xs font-medium">Crossfades</span>
+            <span id="crossfadeCount" class="text-base font-bold text-slate-800">0</span>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <span class="block text-slate-400 text-xs font-medium">Overlays</span>
+            <span id="overlayCount" class="text-base font-bold text-slate-800">0</span>
+          </div>
+        </div>
+
+        <!-- Video Source Files List -->
+        <details class="text-xs text-slate-600">
+          <summary class="cursor-pointer font-medium hover:text-blue-600 transition select-none">
+            View referenced video files (<span id="sourceFileCount">0</span>)
+          </summary>
+          <ul id="sourceFileList" class="mt-2 pl-4 list-disc space-y-1 font-mono text-slate-500 break-all max-h-36 overflow-y-auto">
+          </ul>
+        </details>
+      </div>
+
+      <!-- Settings Card -->
+      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+          <span>⚙️</span>
+          <span>Shotcut Project Settings</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+          <!-- Resolution -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Resolution</label>
+            <select id="settingResolution" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="3840x2160" selected>4K UHD (3840x2160)</option>
+              <option value="1920x1080">1080p FHD (1920x1080)</option>
+              <option value="2560x1440">1440p QHD (2560x1440)</option>
+              <option value="1280x720">720p HD (1280x720)</option>
+            </select>
+          </div>
+
+          <!-- Frame Rate -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Frame Rate</label>
+            <select id="settingFps" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="25" selected>25 fps (PAL / European GoPro)</option>
+              <option value="30">30 fps</option>
+              <option value="29.97">29.97 fps (NTSC)</option>
+              <option value="50">50 fps</option>
+              <option value="60">60 fps</option>
+              <option value="59.94">59.94 fps</option>
+            </select>
+          </div>
+
+          <!-- Default Crossfade -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Default Crossfade</label>
+            <div class="flex items-center space-x-2">
+              <input type="number" id="settingDefaultXfade" value="2.0" step="0.5" min="0" max="10" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              <span class="text-xs text-slate-500">sec</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Path Rewriting (Optional) -->
+        <div class="pt-2 border-t border-slate-100">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">
+            Path Remapping <span class="text-slate-400 font-normal">(Optional: replace folder path if opening on a different computer/OS)</span>
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input type="text" id="pathFind" placeholder="Original folder path (e.g. /media/csm/GoPro01/DCIM)" class="text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-mono text-slate-700" />
+            <input type="text" id="pathReplace" placeholder="New folder path (e.g. D:\GoPro\DCIM)" class="text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-mono text-slate-700" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+        <button id="btnConvert" class="w-full sm:w-auto px-8 py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center space-x-2 text-base">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          <span>Generate & Download Shotcut (.mlt)</span>
+        </button>
+
+        <button id="btnReset" class="text-xs text-slate-500 hover:text-red-600 transition underline">
+          Load another project
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Error Box -->
+    <div id="errorBox" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-4 rounded-xl text-sm space-y-1">
+      <div class="font-bold flex items-center space-x-1.5">
+        <span>⚠️</span>
+        <span id="errorTitle">Invalid Project File</span>
+      </div>
+      <p id="errorMessage" class="text-xs text-rose-600 break-all"></p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-5xl mx-auto px-4 space-y-1">
+      <p>KVRouite to Shotcut Converter &bull; Built with standard MLT XML specifications</p>
+      <p class="text-slate-400">Not officially affiliated with KVRouite or Meltytech/Shotcut.</p>
+    </div>
+  </footer>
+
+  <!-- Converter Core Logic (JavaScript) -->
+  <script>
+    // State
+    let loadedProject = null;
+    let loadedFileName = "";
+
+    const dropZone = document.getElementById("dropZone");
+    const fileInput = document.getElementById("fileInput");
+    const projectSection = document.getElementById("projectSection");
+    const errorBox = document.getElementById("errorBox");
+
+    // Drag and drop handlers
+    ["dragenter", "dragover"].forEach(event => {
+      dropZone.addEventListener(event, (e) => {
+        e.preventDefault();
+        dropZone.classList.add("drag-active");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(event => {
+      dropZone.addEventListener(event, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("drag-active");
+      });
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      const files = e.dataTransfer.files;
+      if (files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    document.getElementById("btnReset").addEventListener("click", () => {
+      loadedProject = null;
+      loadedFileName = "";
+      fileInput.value = "";
+      projectSection.classList.add("hidden");
+      dropZone.classList.remove("hidden");
+      hideError();
+    });
+
+    function showError(title, msg) {
+      document.getElementById("errorTitle").textContent = title;
+      document.getElementById("errorMessage").textContent = msg;
+      errorBox.classList.remove("hidden");
+    }
+
+    function hideError() {
+      errorBox.classList.add("hidden");
+    }
+
+    function handleFile(file) {
+      hideError();
+      loadedFileName = file.name;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const json = JSON.parse(e.target.result);
+          if (!json.playlist || !Array.isArray(json.playlist)) {
+            throw new Error("Missing 'playlist' array in project file.");
+          }
+          loadedProject = json;
+          displayProjectDetails(json, file.name);
+        } catch (err) {
+          showError("Could not read project file", err.message || err);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function formatTime(seconds) {
+      const s = Math.floor(seconds % 60);
+      const m = Math.floor((seconds / 60) % 60);
+      const h = Math.floor(seconds / 3600);
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function displayProjectDetails(proj, filename) {
+      document.getElementById("projectName").textContent = filename;
+      const durations = proj.video_durations || [];
+      const totalSec = durations.reduce((acc, d) => acc + Number(d || 0), 0);
+      document.getElementById("totalDurationBadge").textContent = `Raw: ${formatTime(totalSec)}`;
+
+      document.getElementById("clipCount").textContent = proj.playlist ? proj.playlist.length : 0;
+      document.getElementById("cutCount").textContent = proj.cut_intervals ? proj.cut_intervals.length : 0;
+      document.getElementById("overlayCount").textContent = proj.overlays ? proj.overlays.length : 0;
+
+      // Count crossfades
+      const cuts = proj.cut_intervals || [];
+      let crossfades = 0;
+      cuts.forEach(c => {
+        const cstart = c[0];
+        const cend = c[1];
+        if (Math.abs(cstart) >= 0.1 && Math.abs(cend - totalSec) >= 0.1) {
+          crossfades++;
+        }
+      });
+      document.getElementById("crossfadeCount").textContent = crossfades;
+
+      // Populate file list
+      const sourceList = document.getElementById("sourceFileList");
+      sourceList.innerHTML = "";
+      document.getElementById("sourceFileCount").textContent = proj.playlist.length;
+      proj.playlist.forEach((p, idx) => {
+        const li = document.createElement("li");
+        li.textContent = `[#${idx + 1}] ${p} (${Number(durations[idx] || 0).toFixed(1)}s)`;
+        sourceList.appendChild(li);
+      });
+
+      // Suggest original directory for path find
+      if (proj.playlist.length > 0) {
+        const first = proj.playlist[0];
+        const lastSlash = Math.max(first.lastIndexOf('/'), first.lastIndexOf('\\'));
+        if (lastSlash > 0) {
+          document.getElementById("pathFind").value = first.substring(0, lastSlash);
+        }
+      }
+
+      dropZone.classList.add("hidden");
+      projectSection.classList.remove("hidden");
+    }
+
+    // -------------------------------------------------------------------
+    // MLT Generator Algorithm (Port of core/shotcut_export.py to JS)
+    // -------------------------------------------------------------------
+
+    function keepSegmente(skipList, gesamt) {
+      const trims = skipList
+        .filter(c => (c[2] === -2 || c[2] === -1) && c[1] > c[0])
+        .sort((a, b) => a[0] - b[0]);
+
+      const keeps = [];
+      let lauf = 0.0;
+      for (const [s, e] of trims) {
+        if (s > lauf) keeps.push([lauf, s]);
+        lauf = Math.max(lauf, e);
+      }
+      if (lauf < gesamt) keeps.push([lauf, gesamt]);
+      return keeps;
+    }
+
+    function stueckeBerechnen(skipList, gesamt) {
+      const keeps = keepSegmente(skipList, gesamt);
+      const kanten = [];
+      for (const [s, e, v] of skipList) {
+        if (v === -2 || v === -1) continue;
+        kanten.push([Number(s), Number(e), Math.max(0, Number(v))]);
+      }
+      kanten.sort((a, b) => a[0] - b[0]);
+
+      const stuecke = [];
+      for (const [k_von, k_bis] of keeps) {
+        const grenzen = [k_von];
+        for (const [s, e] of kanten) {
+          if (k_von <= s && e <= k_bis) {
+            grenzen.push(s, e);
+          }
+        }
+        grenzen.push(k_bis);
+
+        for (let i = 0; i < grenzen.length - 1; i += 2) {
+          const von = grenzen[i];
+          const bis = grenzen[i + 1];
+          if (bis - von <= 0) continue;
+
+          let blendeDavor = 0.0;
+          let blendeDanach = 0.0;
+          for (const [s, e, v] of kanten) {
+            if (v <= 0) continue;
+            if (Math.abs(e - von) < 1e-6) blendeDavor = v;
+            if (Math.abs(s - bis) < 1e-6) blendeDanach = v;
+          }
+          stuecke.push([von, bis, blendeDavor, blendeDanach]);
+        }
+      }
+      return stuecke;
+    }
+
+    function resolvePartials(globalStart, globalEnd, durations) {
+      const results = [];
+      if (globalEnd <= globalStart || !durations || durations.length === 0) return results;
+
+      const boundaries = [];
+      let off = 0.0;
+      for (const d of durations) {
+        off += d;
+        boundaries.push(off);
+      }
+
+      let curr = globalStart;
+      let idx = 0;
+      let prevOff = 0.0;
+      for (let i = 0; i < boundaries.length; i++) {
+        if (curr < boundaries[i]) {
+          idx = i;
+          prevOff = i > 0 ? boundaries[i - 1] : 0.0;
+          break;
+        }
+      }
+
+      while (curr < globalEnd && idx < boundaries.length) {
+        const bEnd = boundaries[idx];
+        const lSt = Math.max(0.0, curr - prevOff);
+        const segEnd = Math.min(globalEnd, bEnd);
+        const lEn = Math.max(lSt, segEnd - prevOff);
+        if (lEn > lSt) {
+          results.push([idx, lSt, lEn]);
+        }
+        curr = segEnd;
+        idx++;
+        if (idx < boundaries.length) {
+          prevOff = boundaries[idx - 1];
+        }
+      }
+      return results;
+    }
+
+    function escapeXml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+    }
+
+    // Convert button click
+    document.getElementById("btnConvert").addEventListener("click", () => {
+      if (!loadedProject) return;
+
+      try {
+        const proj = loadedProject;
+        const resChoice = document.getElementById("settingResolution").value.split('x');
+        const width = parseInt(resChoice[0]);
+        const height = parseInt(resChoice[1]);
+        const fps = parseFloat(document.getElementById("settingFps").value);
+        const defaultXfade = parseFloat(document.getElementById("settingDefaultXfade").value || "2.0");
+
+        const pathFind = document.getElementById("pathFind").value.trim();
+        const pathReplace = document.getElementById("pathReplace").value.trim();
+
+        // Remap video paths
+        const videos = proj.playlist.map(p => {
+          if (pathFind && pathReplace) {
+            return p.split(pathFind).join(pathReplace);
+          }
+          return p;
+        });
+
+        const durations = (proj.video_durations || []).map(d => Number(d || 0));
+        const totalDur = durations.reduce((a, b) => a + b, 0);
+
+        if (totalDur <= 0) throw new Error("Total video duration must be greater than zero.");
+
+        // Build skip list [start, end, xfade]
+        const rawCuts = proj.cut_intervals || [];
+        const skipList = [];
+        const cutFades = proj.cut_fades || {};
+
+        for (const [cstart, cend] of rawCuts) {
+          if (Math.abs(cstart - 0.0) < 0.1) {
+            skipList.push([cstart, cend, -2]); // Startcut
+          } else if (Math.abs(cend - totalDur) < 0.1) {
+            skipList.push([cstart, cend, -1]); // Endcut
+          } else {
+            // Check if specific fade defined, else use default
+            const key = `${cstart.toFixed(3)}_${cend.toFixed(3)}`;
+            const xf = cutFades[key] !== undefined ? cutFades[key] : defaultXfade;
+            skipList.push([cstart, cend, xf]);
+          }
+        }
+
+        const secToFrame = (s) => Math.round(Number(s) * fps);
+
+        const stuecke = stueckeBerechnen(skipList, totalDur);
+
+        // Start Building MLT XML
+        let xml = `<?xml version="1.0" encoding="utf-8"?>\n`;
+        xml += `<mlt LC_NUMERIC="C" version="7.24.0" title="${escapeXml(loadedFileName)}">\n`;
+        xml += `  <profile description="HD ${width}x${height} ${fps}fps" width="${width}" height="${height}" `;
+        xml += `progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="16" display_aspect_den="9" `;
+        xml += `frame_rate_num="${fps === 29.97 ? 30000 : (fps === 59.94 ? 60000 : Math.round(fps))}" `;
+        xml += `frame_rate_den="${fps === 29.97 || fps === 59.94 ? 1001 : 1}" colorspace="709"/>\n`;
+
+        // Producers
+        videos.forEach((p, idx) => {
+          const pFrames = Math.max(1, secToFrame(durations[idx]));
+          xml += `  <producer id="producer${idx}" in="0" out="${pFrames - 1}">\n`;
+          xml += `    <property name="length">${pFrames}</property>\n`;
+          xml += `    <property name="eof">pause</property>\n`;
+          xml += `    <property name="resource">${escapeXml(p)}</property>\n`;
+          xml += `    <property name="mlt_service">avformat</property>\n`;
+          xml += `    <property name="seekable">1</property>\n`;
+          xml += `    <property name="audio_index">0</property>\n`;
+          xml += `    <property name="video_index">0</property>\n`;
+          xml += `  </producer>\n`;
+        });
+
+        // Main Bin
+        xml += `  <playlist id="main_bin">\n`;
+        xml += `    <property name="xml_retain">1</property>\n`;
+        videos.forEach((p, idx) => {
+          const pFrames = Math.max(1, secToFrame(durations[idx]));
+          xml += `    <entry producer="producer${idx}" in="0" out="${pFrames - 1}"/>\n`;
+        });
+        xml += `  </playlist>\n`;
+
+        // Assemble pieces & transition tractors
+        const playlistEntries = [];
+        const transitionTractors = [];
+        let transCounter = 0;
+
+        for (let i = 0; i < stuecke.length; i++) {
+          const [von, bis, blDavor, blDanach] = stuecke[i];
+
+          // Transition before
+          if (i > 0 && blDavor > 0) {
+            const transDur = blDavor;
+            const transFrames = Math.max(1, secToFrame(transDur));
+            const prevBis = stuecke[i - 1][1];
+
+            const outPartials = resolvePartials(prevBis - transDur / 2.0, prevBis + transDur / 2.0, durations);
+            const inPartials = resolvePartials(von - transDur / 2.0, von + transDur / 2.0, durations);
+
+            const pOut = outPartials.length > 0 ? outPartials[outPartials.length - 1] : [0, 0, transDur];
+            const pIn = inPartials.length > 0 ? inPartials[0] : [0, 0, transDur];
+
+            const fOutIn = secToFrame(pOut[1]);
+            const fOutOut = fOutIn + transFrames - 1;
+            const fInIn = secToFrame(pIn[1]);
+            const fInOut = fInIn + transFrames - 1;
+
+            const tId = `tractor_trans_${transCounter++}`;
+
+            let trXml = `  <tractor id="${tId}" in="0" out="${transFrames - 1}">\n`;
+            trXml += `    <property name="shotcut:transition">lumaMix</property>\n`;
+            trXml += `    <track producer="producer${pOut[0]}" in="${fOutIn}" out="${fOutOut}"/>\n`;
+            trXml += `    <track producer="producer${pIn[0]}" in="${fInIn}" out="${fInOut}"/>\n`;
+            trXml += `    <transition id="transition_${tId}_v" out="${transFrames - 1}">\n`;
+            trXml += `      <property name="a_track">0</property>\n`;
+            trXml += `      <property name="b_track">1</property>\n`;
+            trXml += `      <property name="mlt_service">luma</property>\n`;
+            trXml += `      <property name="alpha_over">1</property>\n`;
+            trXml += `    </transition>\n`;
+            trXml += `    <transition id="transition_${tId}_a" out="${transFrames - 1}">\n`;
+            trXml += `      <property name="a_track">0</property>\n`;
+            trXml += `      <property name="b_track">1</property>\n`;
+            trXml += `      <property name="mlt_service">mix</property>\n`;
+            trXml += `      <property name="combine">1</property>\n`;
+            trXml += `    </transition>\n`;
+            trXml += `  </tractor>\n`;
+
+            transitionTractors.push(trXml);
+            playlistEntries.push({ type: 'tractor', id: tId, frames: transFrames });
+          }
+
+          // Solo section
+          const soloStart = von + (blDavor > 0 ? blDavor / 2.0 : 0.0);
+          const soloEnd = bis - (blDanach > 0 ? blDanach / 2.0 : 0.0);
+          if (soloEnd > soloStart) {
+            const parts = resolvePartials(soloStart, soloEnd, durations);
+            for (const [pIdx, pSt, pEn] of parts) {
+              const inF = secToFrame(pSt);
+              const outF = Math.max(inF, secToFrame(pEn) - 1);
+              playlistEntries.push({ type: 'entry', producer: `producer${pIdx}`, in: inF, out: outF, frames: outF - inF + 1 });
+            }
+          }
+        }
+
+        // Add transition tractors to XML
+        transitionTractors.forEach(tr => xml += tr);
+
+        // V1 Playlist
+        xml += `  <playlist id="playlist0">\n`;
+        xml += `    <property name="shotcut:video">1</property>\n`;
+        xml += `    <property name="shotcut:name">V1</property>\n`;
+
+        let totalTimelineFrames = 0;
+        playlistEntries.forEach(item => {
+          if (item.type === 'tractor') {
+            xml += `    <entry producer="${item.id}" in="0" out="${item.frames - 1}"/>\n`;
+            totalTimelineFrames += item.frames;
+          } else {
+            xml += `    <entry producer="${item.producer}" in="${item.in}" out="${item.out}"/>\n`;
+            totalTimelineFrames += item.frames;
+          }
+        });
+        xml += `  </playlist>\n`;
+
+        // Black background
+        xml += `  <producer id="black" in="0" out="${totalTimelineFrames + 99}">\n`;
+        xml += `    <property name="length">${totalTimelineFrames + 200}</property>\n`;
+        xml += `    <property name="eof">pause</property>\n`;
+        xml += `    <property name="resource">black</property>\n`;
+        xml += `    <property name="aspect_ratio">1</property>\n`;
+        xml += `    <property name="mlt_service">colour</property>\n`;
+        xml += `  </producer>\n`;
+
+        xml += `  <playlist id="background">\n`;
+        xml += `    <entry producer="black" in="0" out="${Math.max(0, totalTimelineFrames - 1)}"/>\n`;
+        xml += `  </playlist>\n`;
+
+        // Main Project Tractor
+        xml += `  <tractor id="tractor0" title="${escapeXml(loadedFileName)}" in="0" out="${Math.max(0, totalTimelineFrames - 1)}">\n`;
+        xml += `    <property name="shotcut">1</property>\n`;
+        xml += `    <property name="shotcut:project">1</property>\n`;
+        xml += `    <property name="shotcut:scaleFactor">1.0</property>\n`;
+        xml += `    <property name="shotcut:trackHeight">50</property>\n`;
+        xml += `    <track producer="background"/>\n`;
+        xml += `    <track producer="playlist0"/>\n`;
+        xml += `    <transition id="transition_bg_a">\n`;
+        xml += `      <property name="a_track">0</property>\n`;
+        xml += `      <property name="b_track">1</property>\n`;
+        xml += `      <property name="mlt_service">mix</property>\n`;
+        xml += `      <property name="always_active">1</property>\n`;
+        xml += `      <property name="combine">1</property>\n`;
+        xml += `    </transition>\n`;
+        xml += `    <transition id="transition_bg_v">\n`;
+        xml += `      <property name="a_track">0</property>\n`;
+        xml += `      <property name="b_track">1</property>\n`;
+        xml += `      <property name="mlt_service">qtblend</property>\n`;
+        xml += `      <property name="always_active">1</property>\n`;
+        xml += `    </transition>\n`;
+        xml += `  </tractor>\n`;
+        xml += `</mlt>\n`;
+
+        // Trigger Download
+        const baseName = loadedFileName.replace(/\.[^/.]+$/, "");
+        const outName = `${baseName}_shotcut.mlt`;
+        const blob = new Blob([xml], { type: "application/xml;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = outName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+      } catch (err) {
+        showError("Export Failed", err.message || err);
+      }
+    });
+  </script>
+</body>
+</html>
