@@ -14,32 +14,36 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+<body class="text-slate-800 min-h-screen flex flex-col font-sans relative antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Background Wallpaper: Scenic country road with smart trainer bike -->
+  <div class="fixed inset-0 -z-20 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/hero.jpg');"></div>
+  <div class="fixed inset-0 -z-10 bg-slate-950/70 backdrop-blur-[1px]"></div>
 
   <!-- Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+  <header class="bg-slate-900/85 backdrop-blur-md border-b border-slate-700/60 sticky top-0 z-30 shadow-md">
     <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <span class="text-3xl">🎬</span>
         <div>
-          <h1 class="text-lg font-bold text-slate-900 leading-tight">KVRouite &rarr; Shotcut (.mlt)</h1>
-          <p id="t_headerSubtitle" class="text-xs text-slate-500">Fast, 100% Client-Side Project Converter</p>
+          <h1 class="text-lg font-bold text-white leading-tight">KVRouite &rarr; Shotcut (.mlt)</h1>
+          <p id="t_headerSubtitle" class="text-xs text-slate-300">Fast, 100% Client-Side Project Converter</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-sm">
         <!-- Language Selector -->
-        <div class="flex items-center space-x-1.5 bg-slate-100 rounded-lg p-1 border border-slate-200">
+        <div class="flex items-center space-x-1.5 bg-slate-800/90 rounded-lg p-1 border border-slate-700 shadow-inner">
           <span class="text-xs pl-1">🌐</span>
-          <select id="langSelector" class="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer pr-1">
-            <option value="en">English (EN)</option>
-            <option value="de">Deutsch (DE)</option>
-            <option value="fr">Français (FR)</option>
-            <option value="hu">Magyar (HU)</option>
-            <option value="pl">Polski (PL)</option>
+          <select id="langSelector" class="bg-transparent text-xs font-semibold text-slate-200 focus:outline-none cursor-pointer pr-1">
+            <option value="en" class="bg-slate-800 text-slate-200">English (EN)</option>
+            <option value="de" class="bg-slate-800 text-slate-200">Deutsch (DE)</option>
+            <option value="fr" class="bg-slate-800 text-slate-200">Français (FR)</option>
+            <option value="hu" class="bg-slate-800 text-slate-200">Magyar (HU)</option>
+            <option value="pl" class="bg-slate-800 text-slate-200">Polski (PL)</option>
           </select>
         </div>
-        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-600 hover:text-blue-600 transition hidden sm:inline">KVRouite</a>
-        <a href="https://shotcut.org" target="_blank" class="text-slate-600 hover:text-blue-600 transition hidden sm:inline">Shotcut</a>
+        <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="text-slate-300 hover:text-white transition hidden sm:inline font-medium">KVRouite</a>
+        <a href="https://shotcut.org" target="_blank" class="text-slate-300 hover:text-white transition hidden sm:inline font-medium">Shotcut</a>
       </div>
     </div>
   </header>
@@ -48,17 +52,17 @@
   <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full space-y-6">
 
     <!-- Notice / Disclaimer Banner -->
-    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 text-amber-900 shadow-sm space-y-2">
+    <div class="bg-amber-950/80 backdrop-blur-md border border-amber-500/40 rounded-2xl p-4 sm:p-5 text-amber-100 shadow-2xl space-y-2">
       <div class="flex items-start space-x-3">
         <span class="text-xl sm:text-2xl mt-0.5">ℹ️</span>
-        <div class="space-y-1 text-xs sm:text-sm">
-          <h3 class="font-bold flex items-center space-x-1.5 text-amber-950">
+        <div class="space-y-1.5 text-xs sm:text-sm">
+          <h3 class="font-bold flex items-center space-x-1.5 text-amber-300">
             <span id="t_bannerTitle">Important Project & Compatibility Notice</span>
           </h3>
-          <p id="t_bannerAbout" class="leading-relaxed">
-            This tool converts project files from <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="underline font-semibold text-amber-950 hover:text-blue-700 transition">KVRouite</a> (an advanced GoPro video & GPX telemetry editor) to <a href="https://shotcut.org" target="_blank" class="underline font-semibold text-amber-950 hover:text-blue-700 transition">Shotcut</a>.
+          <p id="t_bannerAbout" class="leading-relaxed text-amber-100/90">
+            This tool converts project files from <a href="https://github.com/ridewithoutstomach/KVRouite" target="_blank" class="underline font-semibold text-amber-200 hover:text-white transition">KVRouite</a> (an advanced GoPro video & GPX telemetry editor) to <a href="https://shotcut.org" target="_blank" class="underline font-semibold text-amber-200 hover:text-white transition">Shotcut</a>.
           </p>
-          <p id="t_bannerWarning" class="leading-relaxed text-amber-800">
+          <p id="t_bannerWarning" class="leading-relaxed text-amber-200/80">
             <strong>Please note:</strong> Using an external NLE like Shotcut is <em>not the recommended</em> workflow for KVRouite. Native features such as Voice Removal (AI), Traffic Noise Damping, Merge-Fades, and 360° keyframed views are only supported by KVRouite's built-in GES renderer and cannot be exported to Shotcut. Furthermore, future KVRouite versions may change project formats and are not guaranteed to remain compatible with this converter.
           </p>
         </div>
@@ -66,13 +70,19 @@
     </div>
 
     <!-- Hero / Intro -->
-    <div class="text-center space-y-2 max-w-2xl mx-auto">
-      <h2 id="t_heroTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Convert KVRouite Projects to Shotcut</h2>
-      <p id="t_heroDesc" class="text-slate-600 text-sm sm:text-base">
-        Drag and drop your <code class="bg-slate-200 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono font-bold">.KVRouiteproj</code> file. 
+    <div class="text-center space-y-3 max-w-2xl mx-auto py-2">
+      <div class="inline-flex items-center space-x-2 bg-blue-500/25 border border-blue-400/40 text-blue-200 text-xs px-3.5 py-1.5 rounded-full font-semibold backdrop-blur-md shadow-sm">
+        <span>🚴</span>
+        <span id="t_heroBadge">Virtual Cycling & Interactive Route Video Workflow</span>
+      </div>
+      <h2 id="t_heroTitle" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight drop-shadow-md">
+        Convert KVRouite Projects to Shotcut
+      </h2>
+      <p id="t_heroDesc" class="text-slate-200 text-sm sm:text-base leading-relaxed drop-shadow">
+        Drag and drop your <code class="bg-white/20 text-white border border-white/30 px-1.5 py-0.5 rounded text-xs font-mono font-bold">.KVRouiteproj</code> file. 
         All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.
       </p>
-      <div class="inline-flex items-center space-x-1.5 text-xs text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-medium">
+      <div class="inline-flex items-center space-x-1.5 text-xs text-emerald-300 bg-emerald-950/70 px-3.5 py-1 rounded-full border border-emerald-500/40 font-medium backdrop-blur-md shadow-sm">
         <span id="t_privacyBadge">🔒 100% Private & Client-side: Your files never leave your computer.</span>
       </div>
     </div>
@@ -80,19 +90,19 @@
     <!-- Drop Zone Card -->
     <div 
       id="dropZone" 
-      class="border-2 border-dashed border-slate-300 rounded-2xl p-8 sm:p-12 text-center bg-white hover:border-blue-400 transition cursor-pointer shadow-sm relative group"
+      class="border-2 border-dashed border-slate-300/80 rounded-2xl p-8 sm:p-12 text-center bg-white/95 backdrop-blur-md hover:border-blue-500 hover:bg-white transition-all cursor-pointer shadow-2xl relative group"
     >
       <input type="file" id="fileInput" accept=".KVRouiteproj,.json" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
       <div class="space-y-3">
-        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition">
+        <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-105 transition shadow-inner">
           <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
         </div>
-        <div class="text-base font-semibold text-slate-700">
+        <div class="text-base font-semibold text-slate-800">
           <span id="t_dropAction" class="text-blue-600 underline">Choose a .KVRouiteproj file</span> <span id="t_dropOr">or drag & drop it here</span>
         </div>
-        <p id="t_dropSub" class="text-xs text-slate-400">Supports all KVRouite v6 and v7 project files</p>
+        <p id="t_dropSub" class="text-xs text-slate-500">Supports all KVRouite v6 and v7 project files</p>
       </div>
     </div>
 
@@ -100,7 +110,7 @@
     <div id="projectSection" class="hidden space-y-6">
 
       <!-- Summary Info Card -->
-      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl border border-white/60 p-5 sm:p-6 shadow-2xl space-y-4">
         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
           <h3 class="font-bold text-slate-900 flex items-center space-x-2">
             <span>📋</span>
@@ -141,7 +151,7 @@
       </div>
 
       <!-- Settings Card -->
-      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl border border-white/60 p-5 sm:p-6 shadow-2xl space-y-4">
         <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2">
           <span>⚙️</span>
           <span id="t_settingsTitle">Shotcut Project Settings</span>
@@ -222,10 +232,10 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+  <footer class="bg-slate-950/80 backdrop-blur-md border-t border-slate-800 py-6 text-center text-xs text-slate-400 mt-auto">
     <div class="max-w-5xl mx-auto px-4 space-y-1">
       <p id="t_footerTitle">KVRouite to Shotcut Converter &bull; Built with standard MLT XML specifications</p>
-      <p id="t_footerDisclaimer" class="text-slate-400">Not officially affiliated with KVRouite or Meltytech/Shotcut.</p>
+      <p id="t_footerDisclaimer" class="text-slate-500">Not officially affiliated with KVRouite or Meltytech/Shotcut.</p>
     </div>
   </footer>
 
@@ -238,10 +248,11 @@
       en: {
         headerSubtitle: "Fast, 100% Client-Side Project Converter",
         bannerTitle: "Important Project & Compatibility Notice",
-        bannerAbout: "This tool converts project files from <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (an advanced GoPro video & GPX telemetry editor) to <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerAbout: "This tool converts project files from <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>KVRouite</a> (an advanced GoPro video & GPX telemetry editor) to <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>Shotcut</a>.",
         bannerWarning: "<strong>Please note:</strong> Using an external NLE like Shotcut is <em>not the recommended</em> workflow for KVRouite. Native features such as Voice Removal (AI), Traffic Noise Damping, Merge-Fades, and 360° keyframed views are only supported by KVRouite's built-in GES renderer and cannot be exported to Shotcut. Furthermore, future KVRouite versions may change project formats and are not guaranteed to remain compatible with this converter.",
+        heroBadge: "Virtual Cycling & Interactive Route Video Workflow",
         heroTitle: "Convert KVRouite Projects to Shotcut",
-        heroDesc: "Drag and drop your .KVRouiteproj file. All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.",
+        heroDesc: "Drag and drop your <code class='bg-white/20 text-white border border-white/30 px-1.5 py-0.5 rounded text-xs font-mono font-bold'>.KVRouiteproj</code> file. All cuts, crossfades, and multi-part GoPro chapters will be converted into a native Shotcut MLT timeline.",
         privacyBadge: "🔒 100% Private & Client-side: Your files never leave your computer.",
         dropAction: "Choose a .KVRouiteproj file",
         dropOr: "or drag & drop it here",
@@ -269,10 +280,11 @@
       de: {
         headerSubtitle: "Schneller, 100% Client-seitiger Projekt-Konverter",
         bannerTitle: "Wichtiger Projekt- & Kompatibilitätshinweis",
-        bannerAbout: "Dieses Tool konvertiert Projektdateien von <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (ein fortschrittlicher GoPro Video- & GPX-Telemetry-Editor) nach <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerAbout: "Dieses Tool konvertiert Projektdateien von <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>KVRouite</a> (ein fortschrittlicher GoPro Video- & GPX-Telemetry-Editor) nach <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>Shotcut</a>.",
         bannerWarning: "<strong>Wichtiger Hinweis:</strong> Ein externer Editor wie Shotcut ist <em>nicht der empfohlene</em> Workflow für KVRouite. Native Funktionen wie Stimm-Entfernung (KI), Verkehrslärm-Dämpfung, Merge-Fades und 360°-Keyframe-Blickwinkel werden nur vom internen GES-Renderer unterstützt und können nicht nach Shotcut exportiert werden. Zukünftige KVRouite-Versionen könnten das Format ändern und sind möglicherweise nicht mehr mit diesem Konverter kompatibel.",
+        heroBadge: "Virtuelles Radfahren & Interaktive Streckenvideos",
         heroTitle: "KVRouite-Projekte in Shotcut konvertieren",
-        heroDesc: "Ziehe deine .KVRouiteproj-Datei hierher. Alle Schnitte, Überblendungen und mehrteiligen GoPro-Kapitel werden in eine native Shotcut-MLT-Timeline umgewandelt.",
+        heroDesc: "Ziehe deine <code class='bg-white/20 text-white border border-white/30 px-1.5 py-0.5 rounded text-xs font-mono font-bold'>.KVRouiteproj</code>-Datei hierher. Alle Schnitte, Überblendungen und mehrteiligen GoPro-Kapitel werden in eine native Shotcut-MLT-Timeline umgewandelt.",
         privacyBadge: "🔒 100% Privat & Lokal: Deine Dateien verlassen niemals deinen Computer.",
         dropAction: ".KVRouiteproj-Datei auswählen",
         dropOr: "oder hierher ziehen",
@@ -300,10 +312,11 @@
       fr: {
         headerSubtitle: "Convertisseur de projet rapide, 100% côté client",
         bannerTitle: "Avis important sur le projet et la compatibilité",
-        bannerAbout: "Cet outil convertit les fichiers de projet de <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (éditeur avancé de vidéo GoPro et télémétrie GPX) vers <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerAbout: "Cet outil convertit les fichiers de projet de <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>KVRouite</a> (éditeur avancé de vidéo GoPro et télémétrie GPX) vers <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>Shotcut</a>.",
         bannerWarning: "<strong>Remarque :</strong> L'utilisation d'un éditeur externe comme Shotcut n'est <em>pas la méthode recommandée</em> pour KVRouite. Les fonctionnalités natives telles que la suppression de voix (IA), l'atténuation du bruit de circulation, les fondus d'assemblage et la vue 360° avec images clés ne sont prises en charge que par le moteur GES interne de KVRouite et ne peuvent pas être exportées vers Shotcut. De plus, les futures versions de KVRouite peuvent modifier le format de projet sans garantie de compatibilité avec ce convertisseur.",
+        heroBadge: "Cyclisme virtuel & Vidéos de parcours interactifs",
         heroTitle: "Convertir des projets KVRouite vers Shotcut",
-        heroDesc: "Glissez-déposez votre fichier .KVRouiteproj. Tous les découpages, fondus enchaînés et chapitres GoPro seront convertis dans une timeline Shotcut MLT native.",
+        heroDesc: "Glissez-déposez votre fichier <code class='bg-white/20 text-white border border-white/30 px-1.5 py-0.5 rounded text-xs font-mono font-bold'>.KVRouiteproj</code>. Tous les découpages, fondus enchaînés et chapitres GoPro seront convertis dans une timeline Shotcut MLT native.",
         privacyBadge: "🔒 100% Privé & Local : Vos fichiers ne quittent jamais votre ordinateur.",
         dropAction: "Choisir un fichier .KVRouiteproj",
         dropOr: "ou glissez-déposez-le ici",
@@ -331,10 +344,11 @@
       hu: {
         headerSubtitle: "Gyors, 100%-ban böngészőben futó projekt-konvertáló",
         bannerTitle: "Fontos tájékoztatás és kompatibilitási figyelmeztetés",
-        bannerAbout: "Ez a segédprogram a <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (GoPro videó és GPX telemetria szerkesztő szoftver) projektfájljait alakítja át <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a> formátumra.",
+        bannerAbout: "Ez a segédprogram a <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>KVRouite</a> (GoPro videó és GPX telemetria szerkesztő szoftver) projektfájljait alakítja át <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>Shotcut</a> formátumra.",
         bannerWarning: "<strong>Fontos megjegyzés:</strong> A külső vágóprogram (Shotcut) használata <em>nem az ajánlott</em> módja a KVRouite használatának. A KVRouite saját beépített funkciói (mint az AI hangtisztítás / beszédeltávolítás, a közlekedési zaj csillapítása, a Merge-Fade átmenetek és a 360°-os kulcskockás kameranézetek) kizárólag a KVRouite belső GES motorjában érhetők el, és nem vihetők át Shotcutba. Emellett a jövőbeli KVRouite verziók módosíthatják a fájlformátumot, így azok kompatibilitása nem garantált ezzel a konverterrel.",
+        heroBadge: "Virtuális kerékpározás & szobakerékpáros útvonalvideók",
         heroTitle: "KVRouite projektek konvertálása Shotcutba",
-        heroDesc: "Húzd ide a .KVRouiteproj fájlodat. Az összes vágás, áttűnés és több részből álló GoPro fejezet automatikusan átkerül egy natív Shotcut MLT idővonalra.",
+        heroDesc: "Húzd ide a <code class='bg-white/20 text-white border border-white/30 px-1.5 py-0.5 rounded text-xs font-mono font-bold'>.KVRouiteproj</code> fájlodat. Az összes vágás, áttűnés és több részből álló GoPro fejezet automatikusan átkerül egy natív Shotcut MLT idővonalra.",
         privacyBadge: "🔒 100% Biztonságos & Privát: A fájljaid sosem hagyják el a számítógépedet.",
         dropAction: "Válassz egy .KVRouiteproj fájlt",
         dropOr: "vagy húzd ide",
@@ -362,10 +376,11 @@
       pl: {
         headerSubtitle: "Szybki, w 100% działający w przeglądarce konwerter projektów",
         bannerTitle: "Ważna informacja o projekcie i kompatybilności",
-        bannerAbout: "To narzędzie konwertuje pliki projektów z <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>KVRouite</a> (zaawansowany edytor wideo GoPro i telemetrii GPX) do programu <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-950 hover:text-blue-700 transition'>Shotcut</a>.",
+        bannerAbout: "To narzędzie konwertuje pliki projektów z <a href='https://github.com/ridewithoutstomach/KVRouite' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>KVRouite</a> (zaawansowany edytor wideo GoPro i telemetrii GPX) do programu <a href='https://shotcut.org' target='_blank' class='underline font-semibold text-amber-200 hover:text-white transition'>Shotcut</a>.",
         bannerWarning: "<strong>Uwaga:</strong> Korzystanie z zewnętrznego edytora, takiego jak Shotcut, <em>nie jest zalecanym</em> sposobem pracy z KVRouite. Wbudowane funkcje, takie jak usuwanie głosu (AI), tłumienie hałasu ulicznego, płynne łączenia (Merge-Fades) oraz widoki 360° z klatkami kluczowymi, są obsługiwane wyłącznie przez wewnętrzny silnik GES programu KVRouite i nie mogą być wyeksportowane do programu Shotcut. Ponadto przyszłe wersje KVRouite mogą zmienić format projektu i nie ma gwarancji, że zachowają zgodność z tym konwerterem.",
+        heroBadge: "Wirtualne kolarstwo & interaktywne trasy treningowe",
         heroTitle: "Konwertuj projekty KVRouite do formatu Shotcut",
-        heroDesc: "Przeciągnij i upuść plik .KVRouiteproj. Wszystkie cięcia, przejścia i wieloczęściowe rozdziały GoPro zostaną przekonwertowane na natywną oś czasu Shotcut MLT.",
+        heroDesc: "Przeciągnij i upuść plik <code class='bg-white/20 text-white border border-white/30 px-1.5 py-0.5 rounded text-xs font-mono font-bold'>.KVRouiteproj</code>. Wszystkie cięcia, przejścia i wieloczęściowe rozdziały GoPro zostaną przekonwertowane na natywną oś czasu Shotcut MLT.",
         privacyBadge: "🔒 100% Prywatności & Bezpieczeństwa: Twoje pliki nigdy nie opuszczają komputera.",
         dropAction: "Wybierz plik .KVRouiteproj",
         dropOr: "lub przeciągnij go tutaj",
@@ -404,9 +419,9 @@
       document.getElementById("t_bannerAbout").innerHTML = t.bannerAbout;
       document.getElementById("t_bannerWarning").innerHTML = t.bannerWarning;
 
+      document.getElementById("t_heroBadge").textContent = t.heroBadge;
       document.getElementById("t_heroTitle").textContent = t.heroTitle;
-      document.getElementById("t_heroDesc").childNodes[0].textContent = t.heroDesc.split(".KVRouiteproj")[0];
-      document.getElementById("t_heroDesc").childNodes[2].textContent = t.heroDesc.split(".KVRouiteproj")[1] || "";
+      document.getElementById("t_heroDesc").innerHTML = t.heroDesc;
       document.getElementById("t_privacyBadge").textContent = t.privacyBadge;
       document.getElementById("t_dropAction").textContent = t.dropAction;
       document.getElementById("t_dropOr").textContent = t.dropOr;
