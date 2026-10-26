@@ -2,7 +2,7 @@
 
 A fast, lightweight, and 100% client-side web application that converts **KVRouite** project files (`.KVRouiteproj`) into **Shotcut** project files (`.mlt`).
 
-🔗 **Live Tool:** [https://mcsanady.github.io/kvrouite-to-shotcut/](https://mcsanady.github.io/kvrouite-to-shotcut/)
+🔗 **Live Tool:** [https://kvrouite-to-shotcut.xmikrobi.hu/](https://kvrouite-to-shotcut.xmikrobi.hu/)
 
 ## Features
 - **100% Client-Side & Private:** All conversion logic runs directly in your web browser. No project data or filenames ever leave your machine.
@@ -11,7 +11,7 @@ A fast, lightweight, and 100% client-side web application that converts **KVRoui
 - **Zero Install:** Works instantly in any modern browser without installing Python or dependencies.
 
 ## Usage
-1. Open the [web app](https://mcsanady.github.io/kvrouite-to-shotcut/).
+1. Open the [web app](https://kvrouite-to-shotcut.xmikrobi.hu/).
 2. Drag and drop your `.KVRouiteproj` file onto the drop zone.
 3. (Optional) Adjust target resolution, frame rate, or path remapping.
 4. Click **Generate & Download Shotcut (.mlt)** and open the downloaded project directly in Shotcut!
