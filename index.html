@@ -8,6 +8,9 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+  <!-- Privacy-friendly Web Analytics (GoatCounter) -->
+  <script data-goatcounter="https://pontozhu.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
   <style>
     .drag-active {
       border-color: #3b82f6 !important;
@@ -1109,6 +1112,15 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+
+        // Track successful conversion in GoatCounter
+        if (window.goatcounter && window.goatcounter.count) {
+          window.goatcounter.count({
+            path: 'conversion-download',
+            title: 'Project Converted to MLT',
+            event: true
+          });
+        }
 
       } catch (err) {
         showError("Export Failed", err.message || err);
